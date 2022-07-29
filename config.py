@@ -27,3 +27,6 @@ BASEROW_TABLE_MAPPING = {
 }
 
 BASEROW_API = "https://api.baserow.io/api/database/rows/table/"
+
+ZOTERO_GROUP_ID = "4690432"
+ZOTERO_API = f"https://api.zotero.org/groups/{ZOTERO_GROUP_ID}/items"
