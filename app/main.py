@@ -1,6 +1,6 @@
 import requests
 from fastapi import FastAPI
-from config import (
+from app.config import (
     BASEROW_TABLE_MAPPING,
     BASEROW_API,
     BASEROW_TOKEN,
@@ -40,7 +40,7 @@ async def fetch_entitey(entity_type: str, q: str):
         lookup_type = BASEROW_TABLE_MAPPING[entity_type]['ac_lookup_type']
     except KeyError:
         lookup_type = "contains"
-    
+
     if len(q) < 3:
         return {
             "data": "please type at least three letters"

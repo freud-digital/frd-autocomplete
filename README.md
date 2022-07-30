@@ -1,6 +1,6 @@
 # frd-autocomplete
 
-A fast-api proxy to query several different APIs and unify their response through a single API interface
+A fastapi proxy to query several different APIs and unify their response through a single API interface
 
 
 ## install & develop
@@ -13,4 +13,13 @@ A fast-api proxy to query several different APIs and unify their response throug
 
 ## run
 
-`uvicorn main:app --reload`
+`uvicorn app.main:app --reload`
+
+## docker
+
+### build & run
+
+* `docker build -t frd-ac .`
+* `docker run -d --name frd-ac -p 80:80 --env-file .env_secret frd-ac`
+
+or just run `./build_and_run.sh`
