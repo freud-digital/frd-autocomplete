@@ -23,3 +23,7 @@ A fastapi proxy to query several different APIs and unify their response through
 * `docker run -d --name frd-ac -p 80:80 --env-file .env_secret frd-ac`
 
 or just run `./build_and_run.sh`
+
+### use published image
+
+docker run -d --name frd-ac-officical -p 80:80 --env-file env.secret ghcr.io/freud-digital/frd-autocomplete:main
