@@ -1,4 +1,5 @@
 import requests
+from typing import Union
 from fastapi import FastAPI
 from app.config import (
     BASEROW_TABLE_MAPPING,
@@ -33,7 +34,7 @@ async def fetch_zotero_item(q: str):
 
 
 @app.get("/baserow/{entity_type}")
-async def fetch_entitey(entity_type: str, q: str):
+async def fetch_entitey(entity_type: str, q: str, format: Union[str, None] = None):
     table_id = BASEROW_TABLE_MAPPING[entity_type]['table_id']
     query_field = BASEROW_TABLE_MAPPING[entity_type]['ac_query_field_id']
     try:
@@ -56,6 +57,32 @@ async def fetch_entitey(entity_type: str, q: str):
             }
         )
         data = r.json()
+        if format == 'teicompleter':
+            result = {
+                "tc:suggestion": []
+            }
+            for x in data['results']:
+                item = {
+                    "tc:value": x['frd_id'],
+                    "tc:description": x['name']
+                }
+                result['tc:suggestion'].append(item)
+
+            return result
+
+        if format == 'select2':
+            result = {
+                "results": [],
+            }
+            for x in data['results']:
+                item = {
+                    "id": x['frd_id'],
+                    "text": x['name']
+                }
+                result['results'].append(item)
+
+            return result
+
         return {
             "table_id": url,
             "data": data
