@@ -18,7 +18,10 @@ async def root():
 
 
 @app.get("/zotero/")
-async def fetch_zotero_item(q: str):
+async def fetch_zotero_item(
+    q: str,
+    format: Union[str, None] = "teicompleter"
+):
     if len(q) < 3:
         return {
             "data": "please type at least three letters"
@@ -28,13 +31,53 @@ async def fetch_zotero_item(q: str):
         print(url)
         r = requests.get(url)
         data = r.json()
-        return {
-            "data": data
-        }
+
+        if format == 'teicompleter':
+            result = {
+                "tc:suggestion": []
+            }
+            for x in data:
+                item_data = x['data']
+                item_title = item_data.get('title', 'no title provided')
+                item_place = item_data.get('place', 'no place provided')
+                item_date = item_data.get('date', 'no date provided')
+                item = {
+                    "tc:value": x['key'],
+                    "tc:description": f"{item_title}, {item_place}, {item_date}"
+                }
+                result['tc:suggestion'].append(item)
+
+            return result
+
+        elif format == 'select2':
+            result = {
+                "results": [],
+            }
+            for x in data['data']:
+                item_data = x['data']
+                item_title = item_data.get('title', 'no title provided')
+                item_place = item_data.get('place', 'no place provided')
+                item_date = item_data.get('date', 'no date provided')
+                item = {
+                    "id": x['key'],
+                    "text": f"{item_title}, {item_place}, {item_date}"
+                }
+                result['results'].append(item)
+
+            return result
+
+        elif format == 'original':
+            return {
+                "data": data
+            }
 
 
 @app.get("/baserow/{entity_type}")
-async def fetch_entitey(entity_type: str, q: str, format: Union[str, None] = None):
+async def fetch_entitey(
+    entity_type: str,
+    q: str,
+    format: Union[str, None] = "teicompleter"
+):
     table_id = BASEROW_TABLE_MAPPING[entity_type]['table_id']
     query_field = BASEROW_TABLE_MAPPING[entity_type]['ac_query_field_id']
     try:
@@ -57,6 +100,7 @@ async def fetch_entitey(entity_type: str, q: str, format: Union[str, None] = Non
             }
         )
         data = r.json()
+
         if format == 'teicompleter':
             result = {
                 "tc:suggestion": []
@@ -70,7 +114,7 @@ async def fetch_entitey(entity_type: str, q: str, format: Union[str, None] = Non
 
             return result
 
-        if format == 'select2':
+        elif format == 'select2':
             result = {
                 "results": [],
             }
@@ -83,7 +127,8 @@ async def fetch_entitey(entity_type: str, q: str, format: Union[str, None] = Non
 
             return result
 
-        return {
-            "table_id": url,
-            "data": data
-        }
+        else:
+            return {
+                "table_id": url,
+                "data": data
+            }
