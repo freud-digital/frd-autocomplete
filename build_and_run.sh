@@ -1,5 +1,6 @@
 #/bin/bash
 clear
+docker container stop frd-ac
 docker build -t frd-ac:latest .
 echo "##################"
 echo "##################"

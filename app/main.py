@@ -47,7 +47,7 @@ async def fetch_entitey(entity_type: str, q: str):
         }
     else:
         url = URL.format(BASEROW_API, table_id)
-        url = f"{url}&filter__field_{query_field}__{lookup_type}={q}"
+        url = f"{url}&filter__{query_field}__{lookup_type}={q}"
         print(url)
         r = requests.get(
             url,
