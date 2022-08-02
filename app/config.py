@@ -23,6 +23,14 @@ BASEROW_TABLE_MAPPING = {
     "dream": {
         "table_id": "1475",
         "ac_query_field_id": "field_12443"
+    },
+    "profession": {
+        "table_id": "1473",
+        "ac_query_field_id": "field_12424"
+    },
+    "label": {
+        "table_id": "1469",
+        "ac_query_field_id": "field_12404"
     }
 }
 
