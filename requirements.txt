@@ -1,2 +1,4 @@
+coverage
 fastapi[all]
 flake8
+pytest
