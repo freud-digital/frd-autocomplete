@@ -34,7 +34,7 @@ async def root(request: Request):
 
 
 @app.get("/{entity_type}")
-async def fetch_entitey(
+async def fetch_entitiy(
     entity_type: str,
     q: str,
     format: Union[str, None] = "teicompleter"
