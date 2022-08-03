@@ -60,7 +60,7 @@ async def fetch_entitiy(
                     item_place = item_data.get('place', 'no place provided')
                     item_date = item_data.get('date', 'no date provided')
                     item = {
-                        "tc:value": x['key'],
+                        "tc:value": f"#frd_bibl_{x['key']}",
                         "tc:description": f"{item_title}, {item_place}, {item_date}"
                     }
                     result['tc:suggestion'].append(item)
@@ -77,7 +77,7 @@ async def fetch_entitiy(
                     item_place = item_data.get('place', 'no place provided')
                     item_date = item_data.get('date', 'no date provided')
                     item = {
-                        "id": x['key'],
+                        "id": f"#frd_bibl_{x['key']}",
                         "text": f"{item_title}, {item_place}, {item_date}"
                     }
                     result['results'].append(item)
@@ -109,7 +109,7 @@ async def fetch_entitiy(
                 }
                 for x in data['results']:
                     item = {
-                        "tc:value": x['frd_id'],
+                        "tc:value": f"#{x['frd_id']}",
                         "tc:description": x['name']
                     }
                     result['tc:suggestion'].append(item)
@@ -122,7 +122,7 @@ async def fetch_entitiy(
                 }
                 for x in data['results']:
                     item = {
-                        "id": x['frd_id'],
+                        "id": f"#{x['frd_id']}",
                         "text": x['name']
                     }
                     result['results'].append(item)
