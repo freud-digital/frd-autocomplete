@@ -5,7 +5,9 @@ from app.config import (
     BASEROW_TABLE_MAPPING,
     BASEROW_API,
     BASEROW_TOKEN,
-    ZOTERO_API
+    ZOTERO_API,
+    MINIMAL_CHARS,
+    MINIMAL_CHARS_ERROR
 )
 app = FastAPI()
 
@@ -39,9 +41,9 @@ async def fetch_entitiy(
     q: str,
     format: Union[str, None] = "teicompleter"
 ):
-    if len(q) < 3:
+    if len(q) < MINIMAL_CHARS:
         return {
-            "data": "please type at least three letters"
+            "data": MINIMAL_CHARS_ERROR
         }
     else:
         if entity_type == 'bibl':

@@ -38,3 +38,6 @@ BASEROW_API = "https://baserow.acdh-dev.oeaw.ac.at/api/database/rows/table/"
 
 ZOTERO_GROUP_ID = "4690432"
 ZOTERO_API = f"https://api.zotero.org/groups/{ZOTERO_GROUP_ID}/items"
+
+MINIMAL_CHARS = 3
+MINIMAL_CHARS_ERROR = f"please type at least {MINIMAL_CHARS} letters"
