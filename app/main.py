@@ -9,6 +9,9 @@ from app.config import (
     MINIMAL_CHARS,
     MINIMAL_CHARS_ERROR
 )
+from app.utils import zotero_description
+
+
 app = FastAPI()
 
 URL = "{}{}/?user_field_names=true"
@@ -51,40 +54,33 @@ async def fetch_entitiy(
             print(url)
             r = requests.get(url)
             data = r.json()
-
+            print(data)
             if format == 'teicompleter':
                 result = {
                     "tc:suggestion": []
                 }
                 for x in data:
-                    item_data = x['data']
-                    item_title = item_data.get('title', 'no title provided')
-                    item_place = item_data.get('place', 'no place provided')
-                    item_date = item_data.get('date', 'no date provided')
+                    item_data = zotero_description(x['data'])
                     item = {
-                        "tc:value": f"#frd_bibl_{x['key']}",
-                        "tc:description": f"{item_title}, {item_place}, {item_date}"
+                        "tc:value": item_data['id'],
+                        "tc:description": item_data['value']
                     }
                     result['tc:suggestion'].append(item)
-
                 return result
 
             elif format == 'select2':
                 result = {
                     "results": [],
                 }
-                for x in data['data']:
-                    item_data = x['data']
-                    item_title = item_data.get('title', 'no title provided')
-                    item_place = item_data.get('place', 'no place provided')
-                    item_date = item_data.get('date', 'no date provided')
+                for x in data:
+                    item_data = zotero_description(x['data'])
                     item = {
-                        "id": f"#frd_bibl_{x['key']}",
-                        "text": f"{item_title}, {item_place}, {item_date}"
+                        "id": item_data['id'],
+                        "text": item_data['value']
                     }
                     result['results'].append(item)
-
                 return result
+
             elif format == 'original':
                 return data
         else:
