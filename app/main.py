@@ -9,7 +9,7 @@ from app.config import (
     MINIMAL_CHARS,
     MINIMAL_CHARS_ERROR
 )
-from app.utils import zotero_description
+from app.utils import zotero_description, populate_baserow_response
 
 
 app = FastAPI()
@@ -51,24 +51,10 @@ async def fetch_entitiy(
     else:
         if entity_type == 'bibl':
             url = f"{ZOTERO_API}?q={q}"
-            print(url)
             r = requests.get(url)
             data = r.json()
-            print(data)
-            if format == 'teicompleter':
-                result = {
-                    "tc:suggestion": []
-                }
-                for x in data:
-                    item_data = zotero_description(x['data'])
-                    item = {
-                        "tc:value": item_data['id'],
-                        "tc:description": item_data['value']
-                    }
-                    result['tc:suggestion'].append(item)
-                return result
 
-            elif format == 'select2':
+            if format == 'select2':
                 result = {
                     "results": [],
                 }
@@ -83,6 +69,18 @@ async def fetch_entitiy(
 
             elif format == 'original':
                 return data
+            else:
+                result = {
+                    "tc:suggestion": []
+                }
+                for x in data:
+                    item_data = zotero_description(x['data'])
+                    item = {
+                        "tc:value": item_data['id'],
+                        "tc:description": item_data['value']
+                    }
+                    result['tc:suggestion'].append(item)
+                return result
         else:
             table_id = BASEROW_TABLE_MAPPING[entity_type]['table_id']
             query_field = BASEROW_TABLE_MAPPING[entity_type]['ac_query_field_id']
@@ -100,36 +98,5 @@ async def fetch_entitiy(
                 }
             )
             data = r.json()
-
-            if format == 'teicompleter':
-                result = {
-                    "tc:suggestion": []
-                }
-                for x in data['results']:
-                    item = {
-                        "tc:value": f"#{x['frd_id']}",
-                        "tc:description": x['name']
-                    }
-                    result['tc:suggestion'].append(item)
-
-                return result
-
-            elif format == 'select2':
-                result = {
-                    "results": [],
-                }
-                for x in data['results']:
-                    item = {
-                        "id": f"#{x['frd_id']}",
-                        "text": x['name']
-                    }
-                    result['results'].append(item)
-
-                return result
-
-            elif format == 'original':
-
-                return {
-                    "table_id": url,
-                    "data": data
-                }
+            result = populate_baserow_response(data, format=format)
+            return result
