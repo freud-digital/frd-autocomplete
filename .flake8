@@ -5,3 +5,4 @@ exclude =
     .git,
     build,
     env
+    play.py

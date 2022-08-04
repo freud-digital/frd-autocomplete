@@ -10,7 +10,7 @@ def zotero_description(item_data: dict) -> dict:
     }
 
 
-def populate_baserow_response(data: list, format: str = "teicompleter") -> dict:
+def populate_baserow_response(data: dict, format: str = "teicompleter") -> dict:
     if format == 'select2':
         result = {
             "results": [],
