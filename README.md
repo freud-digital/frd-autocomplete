@@ -1,3 +1,7 @@
+[![flake8 Lint](https://github.com/freud-digital/frd-autocomplete/actions/workflows/lint.yml/badge.svg)](https://github.com/freud-digital/frd-autocomplete/actions/workflows/lint.yml)
+[![Test](https://github.com/freud-digital/frd-autocomplete/actions/workflows/test.yml/badge.svg)](https://github.com/freud-digital/frd-autocomplete/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/freud-digital/frd-autocomplete/branch/main/graph/badge.svg?token=miLq3rRrcq)](https://codecov.io/gh/freud-digital/frd-autocomplete)
+
 # frd-autocomplete
 
 A fastapi proxy to query several different APIs and unify their response through a single API interface
