@@ -1,0 +1,100 @@
+[
+    {
+        "key": "V9N337QB",
+        "version": 50,
+        "library": {
+            "type": "group",
+            "id": 4690432,
+            "name": "sigmund-freud",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/sigmund-freud",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/4690432/items/V9N337QB",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/sigmund-freud/items/V9N337QB",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 9548878,
+                "username": "ch2103",
+                "name": "",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/ch2103",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "Breuer and Freud",
+            "parsedDate": "1895",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "V9N337QB",
+            "version": 50,
+            "itemType": "book",
+            "title": "Studien über Hysterie",
+            "creators": [
+                {
+                    "creatorType": "author",
+                    "firstName": "Josef",
+                    "lastName": "Breuer"
+                },
+                {
+                    "creatorType": "author",
+                    "firstName": "Sigmund",
+                    "lastName": "Freud"
+                }
+            ],
+            "abstractNote": "",
+            "series": "",
+            "seriesNumber": "",
+            "volume": "",
+            "numberOfVolumes": "",
+            "edition": "",
+            "place": "Leipzig Wien",
+            "publisher": "Deuticke",
+            "date": "1895",
+            "numPages": "269",
+            "language": "ger",
+            "ISBN": "",
+            "shortTitle": "",
+            "url": "http://phaidra.univie.ac.at/o:350215",
+            "accessDate": "2022-07-19T11:05:41Z",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "usearch.univie.ac.at",
+            "callNumber": "I-176203",
+            "rights": "",
+            "extra": "",
+            "tags": [
+                {
+                    "tag": "Fallstudiensammlung",
+                    "type": 1
+                },
+                {
+                    "tag": "Hysterie",
+                    "type": 1
+                },
+                {
+                    "tag": "Psychoanalyse",
+                    "type": 1
+                }
+            ],
+            "collections": [],
+            "relations": {},
+            "dateAdded": "2022-07-19T11:06:44Z",
+            "dateModified": "2022-07-19T11:06:44Z"
+        }
+    }
+]

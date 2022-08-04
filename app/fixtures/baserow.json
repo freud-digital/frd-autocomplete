@@ -1,0 +1,32 @@
+{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 21,
+            "order": "21.00000000000000000000",
+            "name": "Freud, Sigmund",
+            "frd_id": "frd_person_21",
+            "gnd_id": "https://d-nb.info/gnd/118535315",
+            "birth_year": "1856",
+            "place_of_birth": [
+                {
+                    "id": 1,
+                    "value": "Příbor"
+                }
+            ],
+            "death_year": "1939",
+            "place_of_death": [
+                {
+                    "id": 2,
+                    "value": "London"
+                }
+            ],
+            "bio": "",
+            "profession": [],
+            "pmb": "",
+            "labels": []
+        }
+    ]
+}

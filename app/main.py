@@ -9,6 +9,9 @@ from app.config import (
     MINIMAL_CHARS,
     MINIMAL_CHARS_ERROR
 )
+from app.utils import populate_baserow_response, populate_zotero_response
+
+
 app = FastAPI()
 
 URL = "{}{}/?user_field_names=true"
@@ -48,45 +51,11 @@ async def fetch_entitiy(
     else:
         if entity_type == 'bibl':
             url = f"{ZOTERO_API}?q={q}"
-            print(url)
             r = requests.get(url)
             data = r.json()
 
-            if format == 'teicompleter':
-                result = {
-                    "tc:suggestion": []
-                }
-                for x in data:
-                    item_data = x['data']
-                    item_title = item_data.get('title', 'no title provided')
-                    item_place = item_data.get('place', 'no place provided')
-                    item_date = item_data.get('date', 'no date provided')
-                    item = {
-                        "tc:value": f"#frd_bibl_{x['key']}",
-                        "tc:description": f"{item_title}, {item_place}, {item_date}"
-                    }
-                    result['tc:suggestion'].append(item)
-
-                return result
-
-            elif format == 'select2':
-                result = {
-                    "results": [],
-                }
-                for x in data['data']:
-                    item_data = x['data']
-                    item_title = item_data.get('title', 'no title provided')
-                    item_place = item_data.get('place', 'no place provided')
-                    item_date = item_data.get('date', 'no date provided')
-                    item = {
-                        "id": f"#frd_bibl_{x['key']}",
-                        "text": f"{item_title}, {item_place}, {item_date}"
-                    }
-                    result['results'].append(item)
-
-                return result
-            elif format == 'original':
-                return data
+            result = populate_zotero_response(data, format=format)
+            return result
         else:
             table_id = BASEROW_TABLE_MAPPING[entity_type]['table_id']
             query_field = BASEROW_TABLE_MAPPING[entity_type]['ac_query_field_id']
@@ -104,36 +73,5 @@ async def fetch_entitiy(
                 }
             )
             data = r.json()
-
-            if format == 'teicompleter':
-                result = {
-                    "tc:suggestion": []
-                }
-                for x in data['results']:
-                    item = {
-                        "tc:value": f"#{x['frd_id']}",
-                        "tc:description": x['name']
-                    }
-                    result['tc:suggestion'].append(item)
-
-                return result
-
-            elif format == 'select2':
-                result = {
-                    "results": [],
-                }
-                for x in data['results']:
-                    item = {
-                        "id": f"#{x['frd_id']}",
-                        "text": x['name']
-                    }
-                    result['results'].append(item)
-
-                return result
-
-            elif format == 'original':
-
-                return {
-                    "table_id": url,
-                    "data": data
-                }
+            result = populate_baserow_response(data, format=format)
+            return result
