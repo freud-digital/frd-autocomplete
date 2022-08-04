@@ -1,4 +1,5 @@
 coverage
 fastapi[all]
+fastapi-cache2==0.1.8
 flake8
 pytest
