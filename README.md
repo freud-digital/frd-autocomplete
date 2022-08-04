@@ -17,7 +17,11 @@ A fastapi proxy to query several different APIs and unify their response through
 
 ## run
 
-`uvicorn app.main:app --reload`
+`uvicorn app.main:app --reload` (or simply `./startserver.sh`)
+
+## test 
+
+`./run_tests.sh`
 
 ## docker
 
