@@ -1,6 +1,9 @@
 import requests
 from typing import Union
 from fastapi import FastAPI, Request
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.inmemory import InMemoryBackend
+from fastapi_cache.decorator import cache
 from app.config import (
     BASEROW_TABLE_MAPPING,
     BASEROW_API,
@@ -18,6 +21,7 @@ URL = "{}{}/?user_field_names=true"
 
 
 @app.get("/")
+@cache(expire=60 * 60)
 async def root(request: Request):
     endpoints = [
         {
@@ -39,6 +43,7 @@ async def root(request: Request):
 
 
 @app.get("/{entity_type}")
+@cache(expire=60 * 60)
 async def fetch_entitiy(
     entity_type: str,
     q: str,
@@ -75,3 +80,8 @@ async def fetch_entitiy(
             data = r.json()
             result = populate_baserow_response(data, format=format)
             return result
+
+
+@app.on_event("startup")
+async def startup():
+    FastAPICache.init(InMemoryBackend())
