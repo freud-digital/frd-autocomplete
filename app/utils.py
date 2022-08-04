@@ -10,6 +10,38 @@ def zotero_description(item_data: dict) -> dict:
     }
 
 
+def populate_zotero_response(data: list, format: str = "teicompleter") -> dict:
+    if format == 'select2':
+        result = {
+            "results": [],
+        }
+        for x in data:
+            item_data = zotero_description(x['data'])
+            item = {
+                "id": item_data['id'],
+                "text": item_data['value']
+            }
+            result['results'].append(item)
+        return result
+
+    elif format == 'original':
+        return {
+            "result": data
+        }
+    else:
+        result = {
+            "tc:suggestion": []
+        }
+        for x in data:
+            item_data = zotero_description(x['data'])
+            item = {
+                "tc:value": item_data['id'],
+                "tc:description": item_data['value']
+            }
+            result['tc:suggestion'].append(item)
+        return result
+
+
 def populate_baserow_response(data: dict, format: str = "teicompleter") -> dict:
     if format == 'select2':
         result = {
